@@ -1,10 +1,11 @@
 "use client"
 
 import { Navbar } from "@/components/ui/navbar"
-import { InteractiveCarousel } from "@/components/ui/interactive-carousel"
 import { Footer } from "@/components/ui/footer"
+import { TrustedCompanies } from "@/components/ui/trusted-companies"
+import { VerticalTestimonials } from "@/components/ui/vertical-testimonials"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import { Star, Check, ChevronDown, ArrowRight, Zap, Target, BarChart3, Users, Shield, Clock } from "lucide-react"
+import { Check, ChevronDown, ArrowRight, Zap, Target, BarChart3, Shield, Clock } from "lucide-react"
 import ChartLineIcon from "@/components/icons/chart-line"
 import PuzzlePieceIcon from "@/components/icons/puzzle-piece"
 import SpeedometerIcon from "@/components/icons/speedometer"
@@ -20,12 +21,10 @@ export default function HomePage() {
   const heroRef = useRef(null)
   const featuresRef = useRef(null)
   const pricingRef = useRef(null)
-  const testimonialsRef = useRef(null)
 
   const heroInView = useInView(heroRef, { once: true })
   const featuresInView = useInView(featuresRef, { once: true })
   const pricingInView = useInView(pricingRef, { once: true })
-  const testimonialsInView = useInView(testimonialsRef, { once: true })
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
 
@@ -66,58 +65,6 @@ export default function HomePage() {
       title: "Performance Optimization",
       description: "Optimize your existing systems for maximum efficiency and ROI",
       gradient: "from-indigo-500 to-blue-500",
-    },
-  ]
-
-  const testimonials = [
-    {
-      quote:
-        "Viversed transformed our workflow with incredible AI solutions. Their expertise truly exceeded all expectations!",
-      name: "Dean Watson",
-      role: "Managing director",
-      company: "Farmland",
-      avatar: "/placeholder.svg?height=48&width=48&text=DW",
-      rating: 5,
-    },
-    {
-      quote: "Viversed provided game-changing insights that helped us optimize processes and scale operations fast.",
-      name: "Emily Zhang",
-      role: "CEO",
-      company: "Futuresync",
-      avatar: "/placeholder.svg?height=48&width=48&text=EZ",
-      rating: 5,
-    },
-    {
-      quote: "Viversed's AI tools revolutionized how we work, saving time and driving our productivity forward.",
-      name: "James Carter",
-      role: "Marketing director",
-      company: "Innolystic",
-      avatar: "/placeholder.svg?height=48&width=48&text=JC",
-      rating: 5,
-    },
-    {
-      quote: "Working with Viversed has been seamless. Their solutions are both innovative and highly effective.",
-      name: "Liam Walker",
-      role: "Product manager",
-      company: "Brightpath",
-      avatar: "/placeholder.svg?height=48&width=48&text=LW",
-      rating: 5,
-    },
-    {
-      quote: "Thanks to Viversed, we've achieved incredible growth by automating tasks and improving accuracy.",
-      name: "Miguel Torres",
-      role: "IT consultant",
-      company: "Alphaedge",
-      avatar: "/placeholder.svg?height=48&width=48&text=MT",
-      rating: 5,
-    },
-    {
-      quote: "The team at Viversed delivered outstanding results, improving our efficiency beyond what we imagined!",
-      name: "Priya Sharma",
-      role: "Founder",
-      company: "NexGen",
-      avatar: "/placeholder.svg?height=48&width=48&text=PS",
-      rating: 5,
     },
   ]
 
@@ -200,49 +147,6 @@ export default function HomePage() {
     },
   ]
 
-  // Create carousel items for testimonials
-  const testimonialCarouselItems = []
-  for (let i = 0; i < testimonials.length; i += 3) {
-    testimonialCarouselItems.push({
-      id: i / 3,
-      content: (
-        <div className="grid md:grid-cols-3 gap-6 px-4">
-          {testimonials.slice(i, i + 3).map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="glass-card glass-card-hover squircle-lg p-6 testimonial-card interactive-card"
-            >
-              <div className="flex items-center mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-300 mb-6 text-sm leading-relaxed italic">"{testimonial.quote}"</p>
-              <div className="flex items-center">
-                <Image
-                  src={testimonial.avatar || "/placeholder.svg"}
-                  alt={testimonial.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full mr-3"
-                />
-                <div>
-                  <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
-                  <p className="text-gray-400 text-xs">
-                    {testimonial.role} • {testimonial.company}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      ),
-    })
-  }
-
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -250,7 +154,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero pt-20"
       >
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -274,8 +178,7 @@ export default function HomePage() {
             className="inline-flex items-center px-4 py-2 squircle glass-card mb-8"
           >
             <span className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></span>
-            <span className="text-sm font-medium text-purple-200">New</span>
-            <span className="text-sm font-medium text-white ml-2">Automated Lead Generation</span>
+            <span className="text-sm font-medium text-purple-200">Viversed - AI Automation Partner</span>
           </motion.div>
 
           <motion.h1
@@ -284,8 +187,8 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight"
           >
-            Intelligent Automation for <br />
-            <span className="text-gradient-purple">Modern Businesses.</span>
+            Transforming workflows with AI <br />
+            <span className="text-gradient-purple">powered automation</span>
           </motion.h1>
 
           <motion.p
@@ -294,7 +197,7 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed"
           >
-            Viversed brings AI automation to your fingertips & streamline tasks.
+            Experience the future of business with intelligent, scalable automation solutions tailored to your needs
           </motion.p>
 
           <motion.div
@@ -303,15 +206,18 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <a href="/contact" className="premium-button squircle text-base px-6 py-3 inline-flex items-center">
-              Get in touch <ArrowRight className="ml-2 w-4 h-4" />
+            <a href="/features" className="premium-button squircle text-base px-8 py-4 inline-flex items-center">
+              Our Services <ArrowRight className="ml-2 w-4 h-4" />
             </a>
-            <a href="/features" className="secondary-button squircle text-base px-6 py-3 inline-flex items-center">
-              View services
+            <a href="/pricing" className="secondary-button squircle text-base px-8 py-4 inline-flex items-center">
+              See Plans
             </a>
           </motion.div>
         </div>
       </section>
+
+      {/* Trusted Companies Section */}
+      <TrustedCompanies />
 
       {/* Services Section */}
       <section ref={featuresRef} className="py-20 relative">
@@ -357,6 +263,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Vertical Testimonials Section */}
+      <VerticalTestimonials />
 
       {/* Pricing Section */}
       <section ref={pricingRef} className="py-20">
@@ -424,40 +333,6 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section ref={testimonialsRef} className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={testimonialsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center px-4 py-2 squircle glass-card mb-6">
-              <Users className="w-4 h-4 text-purple-400 mr-2" />
-              <span className="text-sm font-medium text-purple-200">Testimonials</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Trusted by satisfied clients</h2>
-            <p className="text-xl text-gray-400">Discover how we've driven growth and innovation.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={testimonialsInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="h-80"
-          >
-            <InteractiveCarousel
-              items={testimonialCarouselItems}
-              autoPlay={true}
-              interval={4000}
-              showDots={true}
-              showArrows={true}
-            />
-          </motion.div>
         </div>
       </section>
 
