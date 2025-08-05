@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Space_Grotesk } from "next/font/google"
 import "./globals.css"
-import { SmoothScrollProvider } from "@/components/ui/smooth-scroll-provider"
+import Script from "next/script"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -34,10 +34,13 @@ export default function RootLayout({
     <html lang="en" className={spaceGrotesk.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <Script
+          type="module"
+          src="https://unpkg.com/@splinetool/viewer@1.10.40/build/spline-viewer.js"
+          strategy="beforeInteractive"
+        />
       </head>
-      <body className={spaceGrotesk.className}>
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
-      </body>
+      <body className={spaceGrotesk.className}>{children}</body>
     </html>
   )
 }

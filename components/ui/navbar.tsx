@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
 import Link from "next/link"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X } from "lucide-react"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,18 +33,11 @@ export function Navbar() {
         scrolled ? "top-2" : "top-4"
       }`}
     >
-      <div
-        className={`glass-card backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 transition-all duration-300 ${
-          scrolled ? "bg-black/40" : "bg-black/20"
-        }`}
-      >
-        <div className="flex items-center justify-between w-full max-w-6xl">
+      <div className="glass-card backdrop-blur-xl bg-black/20 border border-white/10 rounded-2xl px-6 py-3">
+        <div className="flex items-center justify-between w-full max-w-6xl mx-auto">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">V</span>
-            </div>
-            <span className="text-white font-semibold text-lg">Viversed</span>
+          <Link href="/" className="text-xl font-bold text-white hover:text-purple-400 transition-colors">
+            Viversed
           </Link>
 
           {/* Desktop Navigation */}
@@ -53,7 +46,7 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
+                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
               >
                 {item.name}
               </Link>
@@ -64,50 +57,50 @@ export function Navbar() {
           <div className="hidden md:block">
             <Link
               href="/contact"
-              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200"
             >
-              Get in touch →
+              Get in touch
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white p-2">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-0 right-0 mt-2 glass-card backdrop-blur-xl border border-white/10 rounded-2xl p-6"
-          >
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden mt-4 pt-4 border-t border-white/10"
+            >
+              <div className="flex flex-col space-y-3">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
                 <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2"
+                  href="/contact"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl text-sm font-medium text-center mt-4"
                   onClick={() => setIsOpen(false)}
                 >
-                  {item.name}
+                  Get in touch
                 </Link>
-              ))}
-              <Link
-                href="/contact"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl font-medium text-center mt-4"
-                onClick={() => setIsOpen(false)}
-              >
-                Get in touch →
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.nav>
   )
 }

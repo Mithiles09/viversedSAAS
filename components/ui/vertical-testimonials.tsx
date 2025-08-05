@@ -13,51 +13,83 @@ export function VerticalTestimonials() {
       quote: "This app has completely transformed how I manage my projects and deadlines.",
       name: "Jamie Teller",
       handle: "@jamietechguru00",
+      role: "Operations",
       avatar: "/placeholder.svg?height=40&width=40&text=JT",
-      rating: 5,
-    },
-    {
-      quote: "I was amazed at how quickly we were able to integrate this app into our workflow.",
-      name: "Casey Jordan",
-      handle: "@caseyj",
-      avatar: "/placeholder.svg?height=40&width=40&text=CJ",
-      rating: 5,
-    },
-    {
-      quote:
-        "Planning and executing events has never been easier. This app helps me keep track of all the moving parts.",
-      name: "Taylor Kim",
-      handle: "@taykimm",
-      avatar: "/placeholder.svg?height=40&width=40&text=TK",
       rating: 5,
     },
     {
       quote: "Our team's productivity has skyrocketed since we started using this tool.",
       name: "Alex Rivera",
       handle: "@alexinnovates",
+      role: "Team Lead",
       avatar: "/placeholder.svg?height=40&width=40&text=AR",
       rating: 5,
     },
     {
-      quote: "Adopting this app for our team has streamlined our project management and improved communication.",
+      quote: "I was amazed at how quickly we were able to integrate this app into our workflow.",
+      name: "Morgan Lee",
+      handle: "@morganleewhiz",
+      role: "Developer",
+      avatar: "/placeholder.svg?height=40&width=40&text=ML",
+      rating: 5,
+    },
+    {
+      quote:
+        "Adopting this app for our team has streamlined our project management and improved communication across the board.",
       name: "Jordan Patels",
       handle: "@jpatelsdesign",
+      role: "Designer",
       avatar: "/placeholder.svg?height=40&width=40&text=JP",
+      rating: 5,
+    },
+    {
+      quote:
+        "Planning and executing events has never been easier. This app helps me keep track of all the moving parts, ensuring nothing slips through the cracks.",
+      name: "Casey Jordan",
+      handle: "@caseyj",
+      role: "Event Manager",
+      avatar: "/placeholder.svg?height=40&width=40&text=CJ",
       rating: 5,
     },
     {
       quote: "With this app, we can easily assign tasks, track progress, and manage documents all in one place.",
       name: "Sam Dawson",
-      handle: "@dawsontechips",
+      handle: "@dawsontechfips",
+      role: "Project Manager",
       avatar: "/placeholder.svg?height=40&width=40&text=SD",
+      rating: 5,
+    },
+    {
+      quote: "The ability to collaborate in real-time.",
+      name: "Taylor Kim",
+      handle: "@taykimm",
+      role: "Analyst",
+      avatar: "/placeholder.svg?height=40&width=40&text=TK",
+      rating: 5,
+    },
+    {
+      quote: "Its user-friendly interface and robust features support our diverse needs.",
+      name: "Casey Harper",
+      handle: "@casey09",
+      role: "Consultant",
+      avatar: "/placeholder.svg?height=40&width=40&text=CH",
+      rating: 5,
+    },
+    {
+      quote: "The customizability and integration capabilities of this app are top-notch.",
+      name: "Alex Chen",
+      handle: "@alexchen",
+      role: "Tech Lead",
+      avatar: "/placeholder.svg?height=40&width=40&text=AC",
       rating: 5,
     },
   ]
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % Math.ceil(testimonials.length / 3))
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % Math.ceil(testimonials.length / 3))
     }, 4000)
+
     return () => clearInterval(interval)
   }, [testimonials.length])
 
@@ -68,14 +100,6 @@ export function VerticalTestimonials() {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-1/4 left-0 opacity-10">
-        <Image src="/metallic-3d.png" alt="" width={200} height={200} className="rotate-45 animate-pulse" />
-      </div>
-      <div className="absolute bottom-1/4 right-0 opacity-15">
-        <Image src="/sphere-blue.png" alt="" width={150} height={150} className="animate-bounce" />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -86,28 +110,28 @@ export function VerticalTestimonials() {
         >
           <div className="inline-flex items-center px-4 py-2 squircle glass-card mb-6">
             <Star className="w-4 h-4 text-purple-400 mr-2" />
-            <span className="text-sm font-medium text-purple-200">TESTIMONIALS</span>
+            <span className="text-sm font-medium text-purple-200">What our users say</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">What our users say</h2>
-          <p className="text-xl text-gray-400">Real feedback from satisfied customers</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Trusted by satisfied clients</h2>
+          <p className="text-xl text-gray-400">Discover how we've driven growth and innovation.</p>
         </motion.div>
 
-        <div className="relative h-96 overflow-hidden">
+        <div className="relative h-80 overflow-hidden">
           <motion.div
             key={currentIndex}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.8 }}
-            className="grid md:grid-cols-3 gap-6 absolute inset-0"
+            className="grid md:grid-cols-3 gap-6 px-4"
           >
             {getVisibleTestimonials().map((testimonial, index) => (
               <motion.div
                 key={`${currentIndex}-${index}`}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="glass-card glass-card-hover squircle-lg p-6 h-fit"
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                className="glass-card glass-card-hover squircle-lg p-6 testimonial-card interactive-card"
               >
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -125,7 +149,9 @@ export function VerticalTestimonials() {
                   />
                   <div>
                     <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
-                    <p className="text-gray-400 text-xs">{testimonial.handle}</p>
+                    <p className="text-gray-400 text-xs">
+                      {testimonial.role} • {testimonial.handle}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -139,8 +165,8 @@ export function VerticalTestimonials() {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-purple-500 w-8" : "bg-gray-600"
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                index === currentIndex ? "bg-purple-500 w-6" : "bg-gray-600"
               }`}
             />
           ))}
