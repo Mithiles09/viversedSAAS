@@ -1,106 +1,119 @@
 "use client"
 
-import Link from "next/link"
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+interface NavLink {
+  label: string
+  href: string
+}
+
+interface NavbarProps {
+  brandName?: string
+  brandHref?: string
+  links?: NavLink[]
+  ctaText?: string
+  ctaHref?: string
+}
+
+export function Navbar({
+  brandName = "Viversed",
+  brandHref = "/",
+  links = [
+    { label: "Process", href: "/process" },
+    { label: "Services", href: "/features" },
+    { label: "Benefits", href: "/benefits" },
+    { label: "Plans", href: "/pricing" },
+    { label: "Contact", href: "/contact" },
+  ],
+  ctaText = "Get in touch",
+  ctaHref = "/contact",
+}: NavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 50)
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const navItems = [
-    { name: "Process", href: "/process" },
-    { name: "Services", href: "/features" },
-    { name: "Benefits", href: "/benefits" },
-    { name: "Plans", href: "/pricing" },
-    { name: "Contact", href: "/contact" },
-  ]
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+    <nav
       className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-        scrolled ? "top-2" : "top-4"
-      }`}
+        isScrolled
+          ? "bg-black/90 backdrop-blur-md border border-white/10"
+          : "bg-black/20 backdrop-blur-sm border border-white/5"
+      } rounded-2xl px-6 py-3 max-w-6xl w-[95%] mx-auto`}
     >
-      <div className="glass-card backdrop-blur-xl bg-black/20 border border-white/10 rounded-2xl px-6 py-3">
-        <div className="flex items-center justify-between w-full max-w-6xl mx-auto">
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-white hover:text-purple-400 transition-colors">
-            Viversed
-          </Link>
+      <div className="flex items-center justify-between">
+        {/* Brand */}
+        <Link
+          href={brandHref}
+          className="text-xl font-bold text-white hover:text-purple-400 transition-colors flex-shrink-0"
+        >
+          {brandName}
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* CTA Button */}
-          <div className="hidden md:block">
+        {/* Desktop Navigation - Centered */}
+        <div className="hidden lg:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+          {links.map((link) => (
             <Link
-              href="/contact"
-              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200"
+              key={link.href}
+              href={link.href}
+              className="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm whitespace-nowrap"
             >
-              Get in touch
+              {link.label}
             </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white p-2">
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4 pt-4 border-t border-white/10"
-            >
-              <div className="flex flex-col space-y-3">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium py-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                <Link
-                  href="/contact"
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl text-sm font-medium text-center mt-4"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Get in touch
-                </Link>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* CTA Button */}
+        <div className="hidden md:block flex-shrink-0">
+          <Link
+            href={ctaHref}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 whitespace-nowrap"
+          >
+            {ctaText}
+          </Link>
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          className="md:hidden text-white p-2 flex-shrink-0"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
-    </motion.nav>
+
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden mt-4 pt-4 border-t border-white/10">
+          <div className="flex flex-col space-y-3">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href={ctaHref}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 text-center mt-4"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {ctaText}
+            </Link>
+          </div>
+        </div>
+      )}
+    </nav>
   )
 }
