@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Space_Grotesk } from "next/font/google"
 import "./globals.css"
+import { SmoothScrollProvider } from "@/components/ui/smooth-scroll-provider"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
       "Transform your workflows with intelligent automation that learns, adapts, and scales with your business needs.",
     type: "website",
   },
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -34,7 +35,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={spaceGrotesk.className}>{children}</body>
+      <body className={spaceGrotesk.className}>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </body>
     </html>
   )
 }

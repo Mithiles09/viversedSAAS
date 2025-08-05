@@ -162,11 +162,21 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
         </div>
 
-        {/* Floating Elements */}
+        {/* Floating Elements with 3D Objects */}
         <motion.div style={{ y }} className="absolute inset-0 z-10">
           <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-xl float-slow"></div>
           <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl float-medium"></div>
           <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-pink-500/20 to-red-500/20 rounded-full blur-xl float-fast"></div>
+
+          {/* 3D Metallic Element */}
+          <div className="absolute top-1/3 right-1/4 opacity-20">
+            <Image src="/metallic-3d.png" alt="" width={150} height={150} className="animate-pulse rotate-12" />
+          </div>
+
+          {/* Sphere Elements */}
+          <div className="absolute bottom-1/3 right-10 opacity-15">
+            <Image src="/sphere-blue.png" alt="" width={100} height={100} className="animate-bounce" />
+          </div>
         </motion.div>
 
         {/* Hero Content */}
@@ -220,7 +230,12 @@ export default function HomePage() {
       <TrustedCompanies />
 
       {/* Services Section */}
-      <section ref={featuresRef} className="py-20 relative">
+      <section ref={featuresRef} className="py-20 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-20 left-0 opacity-10">
+          <Image src="/sphere-dark.png" alt="" width={120} height={120} className="animate-pulse" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -268,7 +283,12 @@ export default function HomePage() {
       <VerticalTestimonials />
 
       {/* Pricing Section */}
-      <section ref={pricingRef} className="py-20">
+      <section ref={pricingRef} className="py-20 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-1/4 right-0 opacity-10">
+          <Image src="/metallic-3d.png" alt="" width={180} height={180} className="rotate-45 animate-pulse" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -337,7 +357,12 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20">
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute bottom-10 left-10 opacity-15">
+          <Image src="/sphere-blue.png" alt="" width={130} height={130} className="animate-bounce" />
+        </div>
+
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -393,14 +418,19 @@ export default function HomePage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20">
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-1/2 right-1/4 opacity-10">
+          <Image src="/sphere-dark.png" alt="" width={100} height={100} className="animate-pulse" />
+        </div>
+
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="glass-card glass-card-hover squircle-xl p-12 interactive-card"
+            className="glass-card glass-card-hover squircle-xl p-12 interactive-card relative"
           >
             <div className="w-16 h-16 squircle-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-6 icon-container">
               <Rocket className="w-8 h-8 text-white" />
